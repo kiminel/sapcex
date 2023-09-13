@@ -14,11 +14,6 @@ import BouncingWord from "./utils/BouncingWord";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "SpaceX",
-  description: "SpaceX Clone",
-};
-
 export default function RootLayout({ children }) {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

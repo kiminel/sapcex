@@ -1,7 +1,11 @@
+export const metadata = {
+  title: "SpaceX",
+  description: "SpaceX Clone",
+  icons: {
+    icon: "/icon.ico",
+  },
+};
+
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Hello World
-    </main>
-  );
+  return <></>;
 }
