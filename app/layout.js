@@ -174,7 +174,7 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.className} style={{ margin: 0 }}>
         <ThemeProvider theme={appTheme}>
           <Box sx={{ height: 1, width: 1, bgcolor: "black" }}>
             {data["docs"] ? (
