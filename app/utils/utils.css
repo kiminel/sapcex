@@ -1,0 +1,17 @@
+.bouncing-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .bouncing-letter {
+    display: inline-block;
+    animation: none;
+  }
+  
+  @keyframes bounce {
+    to {
+      transform: translateY(40px);
+    }
+  }
+  

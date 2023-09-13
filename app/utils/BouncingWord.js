@@ -1,3 +1,4 @@
+import "./utils.css";
 import React, { useEffect, useRef } from "react";
 
 const BouncingWord = ({ text }) => {
@@ -35,13 +36,13 @@ const BouncingWord = ({ text }) => {
   }, []);
 
   const letterElements = text.split("").map((letter, index) => (
-    <span key={index} className="inline-block">
+    <span key={index} className="bouncing-letter">
       {letter}
     </span>
   ));
 
   return (
-    <div className="flex items-center justify-center" ref={targetRef}>
+    <div className="bouncing-text" ref={targetRef}>
       {letterElements}
     </div>
   );
