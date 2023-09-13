@@ -2,7 +2,7 @@
 
 ### Hosted Link:
 
-[SpaceX](https://portfolio-kimi-nel.vercel.app/)
+[SpaceX](https://spacex-concept.vercel.app/)
 
 ### Local Startup
 
