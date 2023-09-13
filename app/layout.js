@@ -1,9 +1,14 @@
 "use client";
-import "./globals.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Inter } from "next/font/google";
+import { Box, Button, Container, Typography } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import Launches from "./components/Launches";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import CountOnScroll from "./utils/CountOnScroll";
+import BouncingWord from "./utils/BouncingWord";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +22,13 @@ export default function RootLayout({ children }) {
   const [currentPage, setCurrentPage] = useState(1);
   const apiUrl = "https://api.spacexdata.com/v4/launches/query";
 
-  const getQueryBody = (pageNumber) => {
+  const theme = useTheme();
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const variant = isMediumScreen ? "h3" : "h2";
+
+  const launchesRef = useRef(null);
+
+  function getQueryBody(pageNumber) {
     return {
       query: {
         upcoming: false,
@@ -95,9 +106,9 @@ export default function RootLayout({ children }) {
         },
       },
     };
-  };
+  }
 
-  const fetchLaunchData = async (pageNumber) => {
+  const fetchData = async (pageNumber) => {
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -108,43 +119,178 @@ export default function RootLayout({ children }) {
       });
 
       if (!response.ok) {
-        console.log("Network response was not ok: ", response);
+        console.log("Network response was not ok");
       }
 
-      const launchData = await response.json();
-      console.log(launchData);
-      setData(launchData);
+      const responseData = await response.json();
+      console.log(responseData);
+      setData(responseData);
     } catch (error) {
-      console.error("Error fetching data: ", error);
+      console.error("Error fetching data:", error);
     }
   };
 
   useEffect(() => {
-    fetchLaunchData(currentPage);
+    fetchData(currentPage);
   }, []);
+
+  const scrollAfterTimeOut = () => {
+    return setTimeout(() => {
+      if (launchesRef.current) {
+        launchesRef.current.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  };
 
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
     fetchData(currentPage + 1);
+    scrollAfterTimeOut();
   };
 
   const prevPage = () => {
     setCurrentPage(currentPage - 1);
     fetchData(currentPage - 1);
+    scrollAfterTimeOut();
   };
 
   return (
     <html lang="en">
       <body className={inter.className}>
-        {data["docs"] ? (
-          <>
-            <Header />
-            {children}
-            <Footer />
-          </>
-        ) : (
-          <div>Loading</div>
-        )}
+        <Box sx={{ height: 1, width: 1, bgcolor: "black" }}>
+          {data["docs"] ? (
+            <>
+              <Header />
+
+              <Box sx={{ position: "relative" }}>
+                <>
+                  <Box
+                    component="img"
+                    sx={{
+                      width: 1,
+                      height: 1,
+                      paddingBottom: "12px",
+                      paddingTop: isMediumScreen ? "55px" : "0px",
+                    }}
+                    alt="Launch cover"
+                    src={data["docs"][0].rocket.flickr_images[4]}
+                  />
+
+                  {!isMediumScreen && (
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: "30%",
+                        left: "15%",
+                        color: "white",
+                      }}
+                    >
+                      <CountOnScroll numberToCount={data["totalDocs"]} />
+                      <Typography
+                        sx={{
+                          textTransform: "uppercase",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        Total SpaceX Launches
+                      </Typography>
+                    </Box>
+                  )}
+                </>
+              </Box>
+
+              {isMediumScreen && (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    py: 4,
+                    color: "white",
+                  }}
+                >
+                  <CountOnScroll numberToCount={data["totalDocs"]} />
+                  <Typography sx={{ textTransform: "uppercase" }}>
+                    Total SpaceX Launches
+                  </Typography>
+                </Box>
+              )}
+
+              <Typography
+                variant={variant}
+                sx={{
+                  color: "white",
+                  textAlign: "center",
+                  letterSpacing: "12px",
+                  pt: 4,
+                  pb: 12,
+                }}
+              >
+                <BouncingWord text={"Explore"} />
+              </Typography>
+
+              <Container maxWidth={false} sx={{ bgcolor: "black" }}>
+                <Box sx={{ flexDirection: "column" }}>
+                  <Box ref={launchesRef}>
+                    <Launches launches={data["docs"]} />
+                  </Box>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      color: "white",
+                      py: 2,
+                      gap: 1,
+                    }}
+                  >
+                    <Typography>
+                      Page {data["page"]} / {data["totalPages"]}{" "}
+                    </Typography>
+
+                    <Box sx={{ display: "flex", gap: 2, py: 4 }}>
+                      <Button
+                        variant="contained"
+                        onClick={prevPage}
+                        disabled={currentPage === 1}
+                        sx={{ bgcolor: "white", color: "black" }}
+                      >
+                        Prev Page
+                      </Button>
+
+                      <Button
+                        variant="contained"
+                        onClick={nextPage}
+                        disabled={currentPage === data["totalPages"]}
+                        sx={{ bgcolor: "white", color: "black" }}
+                      >
+                        Next Page
+                      </Button>
+                    </Box>
+                  </Box>
+                </Box>
+              </Container>
+
+              <Footer />
+            </>
+          ) : (
+            <Box
+              sx={{
+                width: 1,
+                height: "100vh",
+                bgcolor: "black",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Typography variant="h3" sx={{ color: "white", p: 40 }}>
+                Loading...
+              </Typography>
+            </Box>
+          )}
+        </Box>
       </body>
     </html>
   );
