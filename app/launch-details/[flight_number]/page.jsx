@@ -28,7 +28,7 @@ const LaunchDetails = () => {
 
   return (
     <div>
-      <Typography variant="h4">Hellllooo daaaar</Typography>
+      <Typography variant="h4">Hello World</Typography>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+"use client"
 import { Box } from "@mui/material";
 
 const Header = () => {

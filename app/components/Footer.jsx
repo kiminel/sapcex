@@ -1,4 +1,4 @@
-import React from "react";
+"use client";
 import { Box, Link, Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
@@ -41,6 +41,7 @@ const Footer = () => {
         <Typography
           sx={{
             textDecoration: "none",
+            color: "white",
             fontSize: "16px",
             "&:hover": {
               fontSize: "18px",

@@ -1,13 +1,11 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import { Box, Button, Container, Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import Launches from "./components/Launches";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import CountOnScroll from "./utils/CountOnScroll";
 import BouncingWord from "./utils/BouncingWord";
 
@@ -170,8 +168,6 @@ export default function Home() {
         <Box sx={{ height: 1, width: 1, bgcolor: "black" }}>
           {data["docs"] ? (
             <>
-              <Header />
-
               <Box sx={{ position: "relative" }}>
                 <>
                   <Box
@@ -282,8 +278,6 @@ export default function Home() {
                   </Box>
                 </Box>
               </Container>
-
-              <Footer />
             </>
           ) : (
             <Box
