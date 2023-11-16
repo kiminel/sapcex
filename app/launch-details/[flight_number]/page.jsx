@@ -1,5 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { Box, Typography } from "@mui/material";
 import BouncingWord from "@/app/utils/BouncingWord";
 
@@ -7,6 +9,10 @@ const LaunchDetails = () => {
   const searchParams = useSearchParams();
   const launchInfo = searchParams.get("launch");
   const results = JSON.parse(launchInfo);
+
+  const theme = useTheme();
+  const isMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const variant = isMediumScreen ? "h3" : "h2";
 
   if (!results) {
     return (
@@ -39,21 +45,21 @@ const LaunchDetails = () => {
         sx={{
           width: 1,
           marginTop: 8,
-          pt: 12,
+          pt: 8,
           bgcolor: "black",
         }}
       >
-        {/* <Typography
-          variant="h3"
+        <Typography
+          variant={variant}
           sx={{
-            display: "flex",
-            justifyContent: "center",
             color: "white",
+            textAlign: "center",
+            letterSpacing: "12px",
+            pb: 12,
           }}
         >
-          {results.name}
-        </Typography> */}
-        <BouncingWord text={"Explore"} />
+          <BouncingWord text={results.name} />
+        </Typography>
       </Box>
     </Box>
   );
