@@ -21,10 +21,11 @@ const Launch = ({ props }) => {
         pathname: `/launch-details/${props.flight_number}`,
         query: { launch: JSON.stringify(props) },
       }}
+      style={{ textDecoration: "none" }}
       passHref
     >
       <Button
-        variant="contains"
+        variant="contained"
         sx={{
           width: 1,
           height: 1,
