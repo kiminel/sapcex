@@ -15,7 +15,7 @@ const Footer = () => {
       sx={{
         bgcolor: "black",
         color: "white",
-        height: 70,
+        height: 85,
         display: "flex",
         flexDirection: isMediumScreen ? "column" : "normal",
         alignItems: "center",
@@ -36,6 +36,20 @@ const Footer = () => {
           <YouTubeIcon sx={{ width: 20, height: 20, color: "white" }} />
         </Link>
       </Box>
+
+      <Link href="https://www.spacex.com/" target="_blank" underline="none">
+        <Typography
+          sx={{
+            textDecoration: "none",
+            fontSize: "16px",
+            "&:hover": {
+              fontSize: "18px",
+            },
+          }}
+        >
+          Official SpaceX Website
+        </Typography>
+      </Link>
 
       <Box>
         <Typography
