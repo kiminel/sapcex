@@ -1,3 +1,4 @@
+"use client";
 import "./utils.css";
 import { useEffect, useRef } from "react";
 
@@ -9,7 +10,7 @@ const BouncingWord = ({ text }) => {
 
     const handleScroll = () => {
       const letters = container.querySelectorAll(".bouncing-letter");
-      const viewportHeight = (window.innerHeight - 20);
+      const viewportHeight = window.innerHeight - 20;
 
       letters.forEach((letter, index) => {
         //returns a DOMRec object with top and bottom dimension properties
@@ -47,5 +48,5 @@ const BouncingWord = ({ text }) => {
     </div>
   );
 };
- 
+
 export default BouncingWord;

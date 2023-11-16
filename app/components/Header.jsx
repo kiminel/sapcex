@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import Image from "next/image";
 import { Box } from "@mui/material";
 
 const Header = () => {
@@ -17,7 +18,7 @@ const Header = () => {
         boxShadow: 8,
       }}
     >
-      <img src="spacex.jpg" alt="SpaceX" height={40} width={200} />
+      <Image src="/spacex.jpg" alt="SpaceX" height={40} width={200} />
     </Box>
   );
 };

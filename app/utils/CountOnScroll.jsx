@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect, useRef } from "react";
 import { Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
