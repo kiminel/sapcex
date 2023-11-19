@@ -16,14 +16,14 @@ const Launch = ({ props }) => {
   };
 
   return (
-    <Link
-      href={{
-        pathname: `/launch-details/${props.flight_number}`,
-        query: { launch: JSON.stringify(props) },
-      }}
-      style={{ textDecoration: "none" }}
-      passHref
-    >
+    // <Link
+    //   href={{
+    //     pathname: `/launch-details/${props.flight_number}`,
+    //     query: { launch: JSON.stringify(props) },
+    //   }}
+    //   style={{ textDecoration: "none" }}
+    //   passHref
+    // >
       <Button
         variant="contained"
         sx={{
@@ -79,7 +79,7 @@ const Launch = ({ props }) => {
           </Typography>
         </Box>
       </Button>
-    </Link>
+    // </Link>
   );
 };
 
